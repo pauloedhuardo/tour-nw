@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  password     String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  inscriptions Inscription[]
+  results      Result[]
+}
+
+model Event {
+  id           String        @id @default(uuid())
+  title        String
+  description  String
+  startDate    DateTime
+  endDate      DateTime
+  activate     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  inscriptions Inscription[]
+  races        Race[]
+}
+
+model Inscription {
+  id        String   @id @default(uuid())
+  eventId   String
+  userId    String
+  activate  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  event     Event    @relation(fields: [eventId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Race {
+  id        String   @id @default(uuid())
+  date      DateTime
+  eventId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  event     Event    @relation(fields: [eventId], references: [id])
+  results   Result[]
+}
+
+model Result {
+  id        String   @id @default(uuid())
+  raceId    String
+  userId    String
+  position  Int
+  points    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  race      Race     @relation(fields: [raceId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}

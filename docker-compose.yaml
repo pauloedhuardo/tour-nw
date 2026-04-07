@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: tour-nw-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: c9025c83a8d4a73e3857
+      POSTGRES_DB: tour-nw
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -9,8 +9,9 @@ datasource db {
 
 model User {
   id           String        @id @default(uuid())
-  email        String        @unique
-  password     String
+  email        String?        @unique
+  name         String
+  password     String?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   inscriptions Inscription[]
@@ -26,7 +27,7 @@ model Event {
   activate     Boolean       @default(true)
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
-  inscriptions Inscription[]
+  inscriptions Inscription[] 
   races        Race[]
 }
 
@@ -37,8 +38,10 @@ model Inscription {
   activate  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  event     Event    @relation(fields: [eventId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([eventId, userId])
 }
 
 model Race {
@@ -47,7 +50,7 @@ model Race {
   eventId   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  event     Event    @relation(fields: [eventId], references: [id])
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   results   Result[]
 }
 
@@ -59,6 +62,6 @@ model Result {
   points    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  race      Race     @relation(fields: [raceId], references: [id])
+  race      Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id])
 }

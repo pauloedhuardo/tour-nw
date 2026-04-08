@@ -59,71 +59,69 @@ const InscriptionPage = () => {
     <div className="p-5">
       <Header />
 
-      <div className="flex flex-col px-15">
-        <Card className="mt-10 w-full max-w-sm">
-          <CardHeader className="flex justify-between">
-            <CardTitle>Inscrição</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form id="inscription-form" onSubmit={form.handleSubmit(onSubmit)}>
-              <FieldGroup className="flex flex-col gap-6">
-                <Controller
-                  name="name"
-                  control={form.control}
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="name">Nome</FieldLabel>
-                      <Input
-                        {...field}
-                        id="name"
-                        placeholder="Seu nome"
-                        aria-invalid={fieldState.invalid}
-                        autoComplete="off"
-                      />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-                <Controller
-                  name="email"
-                  control={form.control}
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="email">Email</FieldLabel>
-                      <Input
-                        {...field}
-                        id="email"
-                        placeholder="Seu email"
-                        aria-invalid={fieldState.invalid}
-                        autoComplete="off"
-                      />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-              </FieldGroup>
-            </form>
-          </CardContent>
-          <CardFooter>
-            <Button
-              type="submit"
-              form="inscription-form"
-              className="w-full"
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                "Enviar"
-              )}
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
+      <Card className="mt-10 w-full">
+        <CardHeader className="flex justify-between">
+          <CardTitle>Inscrição</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form id="inscription-form" onSubmit={form.handleSubmit(onSubmit)}>
+            <FieldGroup className="flex flex-col gap-6">
+              <Controller
+                name="name"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="name">Nome</FieldLabel>
+                    <Input
+                      {...field}
+                      id="name"
+                      placeholder="Seu nome"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="email"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="email">Email</FieldLabel>
+                    <Input
+                      {...field}
+                      id="email"
+                      placeholder="Seu email"
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+          </form>
+        </CardContent>
+        <CardFooter>
+          <Button
+            type="submit"
+            form="inscription-form"
+            className="w-full"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Enviar"
+            )}
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   )
 }

@@ -39,6 +39,7 @@ const InscriptionPage = () => {
   const upsertInscriptionAction = useAction(upsertInscription, {
     onSuccess: () => {
       toast.success("Inscrição realizada com sucesso.")
+      form.reset()
     },
     onError: () => {
       toast.error("Erro na transação!.")

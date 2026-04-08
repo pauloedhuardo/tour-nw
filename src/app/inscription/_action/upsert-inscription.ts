@@ -1,6 +1,6 @@
 "use server"
 
-import { redirect } from "next/navigation"
+import { revalidatePath } from "next/cache"
 
 import { actionClient } from "@/lib/next-safe-action"
 import prisma from "@/lib/prisma"
@@ -51,5 +51,5 @@ export const upsertInscription = actionClient
         eventId: event.id,
       },
     })
-    redirect("/")
+    revalidatePath("/")
   })

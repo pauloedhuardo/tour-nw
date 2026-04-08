@@ -40,6 +40,7 @@ export type ResultMinAggregateOutputType = {
   id: string | null
   raceId: string | null
   userId: string | null
+  type: $Enums.ResultType | null
   position: number | null
   points: number | null
   createdAt: Date | null
@@ -50,6 +51,7 @@ export type ResultMaxAggregateOutputType = {
   id: string | null
   raceId: string | null
   userId: string | null
+  type: $Enums.ResultType | null
   position: number | null
   points: number | null
   createdAt: Date | null
@@ -60,6 +62,7 @@ export type ResultCountAggregateOutputType = {
   id: number
   raceId: number
   userId: number
+  type: number
   position: number
   points: number
   createdAt: number
@@ -81,6 +84,7 @@ export type ResultMinAggregateInputType = {
   id?: true
   raceId?: true
   userId?: true
+  type?: true
   position?: true
   points?: true
   createdAt?: true
@@ -91,6 +95,7 @@ export type ResultMaxAggregateInputType = {
   id?: true
   raceId?: true
   userId?: true
+  type?: true
   position?: true
   points?: true
   createdAt?: true
@@ -101,6 +106,7 @@ export type ResultCountAggregateInputType = {
   id?: true
   raceId?: true
   userId?: true
+  type?: true
   position?: true
   points?: true
   createdAt?: true
@@ -205,6 +211,7 @@ export type ResultGroupByOutputType = {
   id: string
   raceId: string
   userId: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt: Date
@@ -236,6 +243,7 @@ export type ResultWhereInput = {
   id?: Prisma.StringFilter<"Result"> | string
   raceId?: Prisma.StringFilter<"Result"> | string
   userId?: Prisma.StringFilter<"Result"> | string
+  type?: Prisma.EnumResultTypeFilter<"Result"> | $Enums.ResultType
   position?: Prisma.IntFilter<"Result"> | number
   points?: Prisma.IntFilter<"Result"> | number
   createdAt?: Prisma.DateTimeFilter<"Result"> | Date | string
@@ -248,6 +256,7 @@ export type ResultOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   raceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   position?: Prisma.SortOrder
   points?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -259,11 +268,13 @@ export type ResultOrderByWithRelationInput = {
 export type ResultWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string
+    raceId_userId_type?: Prisma.ResultRaceIdUserIdTypeCompoundUniqueInput
     AND?: Prisma.ResultWhereInput | Prisma.ResultWhereInput[]
     OR?: Prisma.ResultWhereInput[]
     NOT?: Prisma.ResultWhereInput | Prisma.ResultWhereInput[]
     raceId?: Prisma.StringFilter<"Result"> | string
     userId?: Prisma.StringFilter<"Result"> | string
+    type?: Prisma.EnumResultTypeFilter<"Result"> | $Enums.ResultType
     position?: Prisma.IntFilter<"Result"> | number
     points?: Prisma.IntFilter<"Result"> | number
     createdAt?: Prisma.DateTimeFilter<"Result"> | Date | string
@@ -271,13 +282,14 @@ export type ResultWhereUniqueInput = Prisma.AtLeast<
     race?: Prisma.XOR<Prisma.RaceScalarRelationFilter, Prisma.RaceWhereInput>
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   },
-  "id"
+  "id" | "raceId_userId_type"
 >
 
 export type ResultOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   raceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   position?: Prisma.SortOrder
   points?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -300,6 +312,7 @@ export type ResultScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Result"> | string
   raceId?: Prisma.StringWithAggregatesFilter<"Result"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Result"> | string
+  type?: Prisma.EnumResultTypeWithAggregatesFilter<"Result"> | $Enums.ResultType
   position?: Prisma.IntWithAggregatesFilter<"Result"> | number
   points?: Prisma.IntWithAggregatesFilter<"Result"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Result"> | Date | string
@@ -308,6 +321,7 @@ export type ResultScalarWhereWithAggregatesInput = {
 
 export type ResultCreateInput = {
   id?: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -320,6 +334,7 @@ export type ResultUncheckedCreateInput = {
   id?: string
   raceId: string
   userId: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -328,6 +343,7 @@ export type ResultUncheckedCreateInput = {
 
 export type ResultUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -340,6 +356,7 @@ export type ResultUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   raceId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -350,6 +367,7 @@ export type ResultCreateManyInput = {
   id?: string
   raceId: string
   userId: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -358,6 +376,7 @@ export type ResultCreateManyInput = {
 
 export type ResultUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -368,6 +387,7 @@ export type ResultUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   raceId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -384,10 +404,17 @@ export type ResultOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ResultRaceIdUserIdTypeCompoundUniqueInput = {
+  raceId: string
+  userId: string
+  type: $Enums.ResultType
+}
+
 export type ResultCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   raceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   position?: Prisma.SortOrder
   points?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -403,6 +430,7 @@ export type ResultMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   raceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   position?: Prisma.SortOrder
   points?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -413,6 +441,7 @@ export type ResultMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   raceId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   position?: Prisma.SortOrder
   points?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -596,6 +625,10 @@ export type ResultUncheckedUpdateManyWithoutRaceNestedInput = {
   deleteMany?: Prisma.ResultScalarWhereInput | Prisma.ResultScalarWhereInput[]
 }
 
+export type EnumResultTypeFieldUpdateOperationsInput = {
+  set?: $Enums.ResultType
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -606,6 +639,7 @@ export type IntFieldUpdateOperationsInput = {
 
 export type ResultCreateWithoutUserInput = {
   id?: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -616,6 +650,7 @@ export type ResultCreateWithoutUserInput = {
 export type ResultUncheckedCreateWithoutUserInput = {
   id?: string
   raceId: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -670,6 +705,7 @@ export type ResultScalarWhereInput = {
   id?: Prisma.StringFilter<"Result"> | string
   raceId?: Prisma.StringFilter<"Result"> | string
   userId?: Prisma.StringFilter<"Result"> | string
+  type?: Prisma.EnumResultTypeFilter<"Result"> | $Enums.ResultType
   position?: Prisma.IntFilter<"Result"> | number
   points?: Prisma.IntFilter<"Result"> | number
   createdAt?: Prisma.DateTimeFilter<"Result"> | Date | string
@@ -678,6 +714,7 @@ export type ResultScalarWhereInput = {
 
 export type ResultCreateWithoutRaceInput = {
   id?: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -688,6 +725,7 @@ export type ResultCreateWithoutRaceInput = {
 export type ResultUncheckedCreateWithoutRaceInput = {
   id?: string
   userId: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -738,6 +776,7 @@ export type ResultUpdateManyWithWhereWithoutRaceInput = {
 export type ResultCreateManyUserInput = {
   id?: string
   raceId: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -746,6 +785,7 @@ export type ResultCreateManyUserInput = {
 
 export type ResultUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -756,6 +796,7 @@ export type ResultUpdateWithoutUserInput = {
 export type ResultUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   raceId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -765,6 +806,7 @@ export type ResultUncheckedUpdateWithoutUserInput = {
 export type ResultUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   raceId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -774,6 +816,7 @@ export type ResultUncheckedUpdateManyWithoutUserInput = {
 export type ResultCreateManyRaceInput = {
   id?: string
   userId: string
+  type: $Enums.ResultType
   position: number
   points: number
   createdAt?: Date | string
@@ -782,6 +825,7 @@ export type ResultCreateManyRaceInput = {
 
 export type ResultUpdateWithoutRaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -792,6 +836,7 @@ export type ResultUpdateWithoutRaceInput = {
 export type ResultUncheckedUpdateWithoutRaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -801,6 +846,7 @@ export type ResultUncheckedUpdateWithoutRaceInput = {
 export type ResultUncheckedUpdateManyWithoutRaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumResultTypeFieldUpdateOperationsInput | $Enums.ResultType
   position?: Prisma.IntFieldUpdateOperationsInput | number
   points?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -815,6 +861,7 @@ export type ResultSelect<
     id?: boolean
     raceId?: boolean
     userId?: boolean
+    type?: boolean
     position?: boolean
     points?: boolean
     createdAt?: boolean
@@ -833,6 +880,7 @@ export type ResultSelectCreateManyAndReturn<
     id?: boolean
     raceId?: boolean
     userId?: boolean
+    type?: boolean
     position?: boolean
     points?: boolean
     createdAt?: boolean
@@ -851,6 +899,7 @@ export type ResultSelectUpdateManyAndReturn<
     id?: boolean
     raceId?: boolean
     userId?: boolean
+    type?: boolean
     position?: boolean
     points?: boolean
     createdAt?: boolean
@@ -865,6 +914,7 @@ export type ResultSelectScalar = {
   id?: boolean
   raceId?: boolean
   userId?: boolean
+  type?: boolean
   position?: boolean
   points?: boolean
   createdAt?: boolean
@@ -878,6 +928,7 @@ export type ResultOmit<
   | "id"
   | "raceId"
   | "userId"
+  | "type"
   | "position"
   | "points"
   | "createdAt"
@@ -920,6 +971,7 @@ export type $ResultPayload<
       id: string
       raceId: string
       userId: string
+      type: $Enums.ResultType
       position: number
       points: number
       createdAt: Date
@@ -1547,6 +1599,7 @@ export interface ResultFieldRefs {
   readonly id: Prisma.FieldRef<"Result", "String">
   readonly raceId: Prisma.FieldRef<"Result", "String">
   readonly userId: Prisma.FieldRef<"Result", "String">
+  readonly type: Prisma.FieldRef<"Result", "ResultType">
   readonly position: Prisma.FieldRef<"Result", "Int">
   readonly points: Prisma.FieldRef<"Result", "Int">
   readonly createdAt: Prisma.FieldRef<"Result", "DateTime">

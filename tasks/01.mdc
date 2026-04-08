@@ -1,0 +1,42 @@
+---
+alwaysApply: false
+---
+
+## Tarefa
+
+Crie uma tela em src/app/race de inserção no banco de dados dos resultados de uma Race.
+
+## Requisitos técnicos
+
+- Busque no banco de dados todas as Races cadastradas e liste em um componente Dropdown.
+- Liste os Users/Athletes cadastrados e implemente campos para informar a colocação de cada user/athlete na Race escolhida de acordo com o seguinte:
+
+  1.Chegada
+  2.Sprint
+  3.Subida
+
+- Use a regra abaixo para setar as pontuações:
+
+PONTUAÇÃO
+
+- Chegada (classificação principal)
+  1º: 10 pts
+  2º: 7 pts
+  3º: 5 pts
+  4º: 3 pts
+  5º: 1 pt
+
+- Subida
+  1º: 5 pts
+  2º: 3 pts
+  3º: 1 pt
+
+- Sprint
+  1º: 5 pts
+  2º: 3 pts
+  3º: 1 pt
+
+BÔNUS DE PARTICIPAÇÃO
+Presença na Race: +1 ponto
+
+- Grave as informações na tabela "Result" no banco de dados.

@@ -17,10 +17,6 @@ async function main() {
       eventId: event.id,
     },
     {
-      date: new Date("2026-04-10"),
-      eventId: event.id,
-    },
-    {
       date: new Date("2026-04-16"),
       eventId: event.id,
     },

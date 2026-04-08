@@ -8,5 +8,12 @@
  * 🟢 You can import this file directly.
  */
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ResultType = {
+  FINISH: "FINISH",
+  SPRINT_1: "SPRINT_1",
+  SPRINT_2: "SPRINT_2",
+  CLIMB_1: "CLIMB_1",
+  CLIMB_2: "CLIMB_2",
+} as const
+
+export type ResultType = (typeof ResultType)[keyof typeof ResultType]

@@ -7,6 +7,7 @@ import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import z from "zod"
 
+import Header from "@/components/header"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -21,7 +22,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field"
-import Header from "@/components/ui/header"
 import { Input } from "@/components/ui/input"
 
 import { upsertInscription } from "./_action/upsert-inscription"

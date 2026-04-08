@@ -1,0 +1,10 @@
+---
+globs: *.ts
+alwaysApply: false
+---
+
+## Componentes
+
+- Sempre use a biblioteca "next-safe-action" ao criar com Server Actions. Use a Server Action @upsert-inscription.ts/src\app\inscription_action\upsert-inscription.ts como referência.
+- Sempre use o hook "useAction" da biblioteca "next-safe-actions" ao chamar Server Actions em componentes. Use o componente (@page/src\app\inscription\page.tsx) como referência.
+- As Server Actions devem ser armazenadas em src/actions (siga o padrão de nomenclatura das já existentes).

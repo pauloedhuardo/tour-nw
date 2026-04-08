@@ -212,6 +212,7 @@ export type InscriptionOrderByWithRelationInput = {
 export type InscriptionWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string
+    eventId_userId?: Prisma.InscriptionEventIdUserIdCompoundUniqueInput
     AND?: Prisma.InscriptionWhereInput | Prisma.InscriptionWhereInput[]
     OR?: Prisma.InscriptionWhereInput[]
     NOT?: Prisma.InscriptionWhereInput | Prisma.InscriptionWhereInput[]
@@ -223,7 +224,7 @@ export type InscriptionWhereUniqueInput = Prisma.AtLeast<
     event?: Prisma.XOR<Prisma.EventScalarRelationFilter, Prisma.EventWhereInput>
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   },
-  "id"
+  "id" | "eventId_userId"
 >
 
 export type InscriptionOrderByWithAggregationInput = {
@@ -323,6 +324,11 @@ export type InscriptionListRelationFilter = {
 
 export type InscriptionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type InscriptionEventIdUserIdCompoundUniqueInput = {
+  eventId: string
+  userId: string
 }
 
 export type InscriptionCountOrderByAggregateInput = {

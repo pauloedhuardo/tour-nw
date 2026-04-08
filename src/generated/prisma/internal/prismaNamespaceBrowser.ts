@@ -130,6 +130,7 @@ export const ResultScalarFieldEnum = {
   id: "id",
   raceId: "raceId",
   userId: "userId",
+  type: "type",
   position: "position",
   points: "points",
   createdAt: "createdAt",

@@ -20,6 +20,11 @@ const InscriptionList = async () => {
       user: true,
       event: true,
     },
+    orderBy: {
+      user: {
+        name: "asc",
+      },
+    },
   })
   return (
     <div>

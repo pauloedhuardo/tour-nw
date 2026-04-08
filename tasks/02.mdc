@@ -1,0 +1,16 @@
+---
+alwaysApply: false
+---
+
+## Tarefa
+
+- Crie listas em src/app/page.tsx, dentro da tabtrigger "rc" para listar a classificação dos atletas.
+
+## Requisitos técnicos
+
+- Use um dropdown com as races cadastradas (ordene de forma crescente) que servirá como filtro para buscar no banco de dados os atletas que participaram da race escolhida com suas respectivas pontuações naquela race.
+- As listas seguirão a ordem de pontuação de acordo com os resultados e serão na seguinte ordem de apresentação:
+
+  1.Lista de Chegada
+  2.Lista de Sprint (considere a somatória das pontuações dos 2 sprints da race)
+  3.Lista de Subida. (considere a somatória das pontuações das 2 subidas da race)

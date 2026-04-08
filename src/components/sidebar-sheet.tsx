@@ -1,6 +1,6 @@
 "use client"
 
-import { HomeIcon, UserPlus } from "lucide-react"
+import { FlagIcon, HomeIcon, UserPlus } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -32,6 +32,14 @@ const SideBarSheet = () => {
             <Button className="justify-start gap-2" variant="ghost">
               <UserPlus size={18} />
               Inscrição
+            </Button>
+          </Link>
+        </SheetClose>
+        <SheetClose asChild>
+          <Link href="/race">
+            <Button className="justify-start gap-2" variant="ghost">
+              <FlagIcon size={18} />
+              Resultado Race
             </Button>
           </Link>
         </SheetClose>

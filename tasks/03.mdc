@@ -1,0 +1,15 @@
+---
+alwaysApply: false
+---
+
+## Tarefa
+
+- Crie listas em src/app/page.tsx, dentro da tabtrigger "gc" para listar a classificação dos atletas.
+
+## Requisitos técnicos
+
+- As listas seguirão a ordem de pontuação de acordo com os resultados de todas as races e serão na seguinte ordem de apresentação:
+
+  1.Classificação Geral
+  2.Classificação Sprint (considere a somatória das pontuações de todos sprints de todas as races)
+  3.Classificação Subida. (considere a somatória das pontuações de todas as subidas de todas as race)

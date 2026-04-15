@@ -83,8 +83,15 @@ export const upsertRaceResults = actionClient
       const climbPosition1 = athlete.climbPosition1 ?? 0
       const climbPosition2 = athlete.climbPosition2 ?? 0
 
-      const finishPoints =
-        getScore(athlete.finishPosition, FINISH_POINTS) + PARTICIPATION_BONUS
+      let finishPoints: number
+
+      if (finishPosition > 0) {
+        finishPoints =
+          getScore(athlete.finishPosition, FINISH_POINTS) + PARTICIPATION_BONUS
+      } else {
+        finishPoints = 0
+      }
+
       const sprintPoints1 = getScore(athlete.sprintPosition1, SPRINT_POINTS)
       const sprintPoints2 = getScore(athlete.sprintPosition2, SPRINT_POINTS)
       const climbPoints1 = getScore(athlete.climbPosition1, CLIMB_POINTS)

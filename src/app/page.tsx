@@ -50,7 +50,7 @@ export default async function Home() {
       <Header />
 
       <div className="flex flex-col items-center gap-4 pt-10">
-        <Tabs defaultValue="in" className="w-full">
+        <Tabs defaultValue="gc" className="w-full">
           <TabsList>
             <TabsTrigger value="gc">Classificação Geral</TabsTrigger>
             <TabsTrigger value="rc">Resultado Etapa</TabsTrigger>

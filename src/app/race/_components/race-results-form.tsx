@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useAction } from "next-safe-action/hooks"
 import { useEffect, useMemo, useState } from "react"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
@@ -62,61 +63,62 @@ type FormValues = z.infer<typeof raceResultsSchema>
 const selectClassName =
   "border-input file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 h-9 w-full min-w-0 rounded-md border bg-transparent px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 md:text-sm"
 
-const getAthleteDefaultPositions = (race: RaceData) => {
-  const getPositionByType = (userId: string, type: RaceResultType) =>
-    race.results.find(
-      (result) => result.userId === userId && result.type === type,
-    )?.position || undefined
+const getEmptyAthletePositions = (race: RaceData) =>
+  race.athletes.map((athlete) => ({
+    userId: athlete.userId,
+    finishPosition: undefined,
+    sprintPosition1: undefined,
+    sprintPosition2: undefined,
+    climbPosition1: undefined,
+    climbPosition2: undefined,
+  }))
 
-  return race.athletes.map((athlete) => {
-    return {
-      userId: athlete.userId,
-      finishPosition: getPositionByType(athlete.userId, "FINISH"),
-      sprintPosition1: getPositionByType(athlete.userId, "SPRINT_1"),
-      sprintPosition2: getPositionByType(athlete.userId, "SPRINT_2"),
-      climbPosition1: getPositionByType(athlete.userId, "CLIMB_1"),
-      climbPosition2: getPositionByType(athlete.userId, "CLIMB_2"),
-    }
-  })
-}
+const getResetValues = (selectedRaceId: string, selectedRace?: RaceData) => ({
+  raceId: selectedRaceId,
+  athletes: selectedRace ? getEmptyAthletePositions(selectedRace) : [],
+})
 
 const RaceResultsForm = ({ races }: RaceResultsFormProps) => {
-  const initialRaceId = races[0]?.id ?? ""
+  const router = useRouter()
+  const availableRaces = useMemo(
+    () => races.filter((race) => race.results.length === 0),
+    [races],
+  )
+  const initialRaceId = availableRaces[0]?.id ?? ""
   const [selectedRaceId, setSelectedRaceId] = useState(initialRaceId)
 
+  const effectiveSelectedRaceId = useMemo(() => {
+    const raceIsStillAvailable = availableRaces.some(
+      (race) => race.id === selectedRaceId,
+    )
+    if (raceIsStillAvailable) return selectedRaceId
+    return availableRaces[0]?.id ?? ""
+  }, [availableRaces, selectedRaceId])
+
   const selectedRace = useMemo(
-    () => races.find((race) => race.id === selectedRaceId),
-    [races, selectedRaceId],
+    () => availableRaces.find((race) => race.id === effectiveSelectedRaceId),
+    [availableRaces, effectiveSelectedRaceId],
   )
 
   const form = useForm<FormValues>({
     resolver: zodResolver(raceResultsSchema),
-    defaultValues: {
-      raceId: selectedRaceId,
-      athletes: selectedRace ? getAthleteDefaultPositions(selectedRace) : [],
-    },
+    defaultValues: getResetValues(selectedRaceId, selectedRace),
   })
 
-  const { fields, replace } = useFieldArray({
+  const { fields } = useFieldArray({
     control: form.control,
     name: "athletes",
   })
 
   useEffect(() => {
-    if (!selectedRace) {
-      replace([])
-      form.setValue("raceId", "")
-      return
-    }
-
-    replace(getAthleteDefaultPositions(selectedRace))
-    form.setValue("raceId", selectedRace.id)
-  }, [form, replace, selectedRace])
+    form.reset(getResetValues(effectiveSelectedRaceId, selectedRace))
+  }, [effectiveSelectedRaceId, form, selectedRace])
 
   const upsertRaceResultsAction = useAction(upsertRaceResults, {
     onSuccess: () => {
       toast.success("Resultados salvos com sucesso.")
-      form.reset()
+      form.reset(getResetValues(effectiveSelectedRaceId, selectedRace))
+      router.refresh()
     },
     onError: () => {
       toast.error("Erro ao salvar os resultados.")
@@ -144,15 +146,17 @@ const RaceResultsForm = ({ races }: RaceResultsFormProps) => {
               <select
                 id="raceId"
                 className={cn(selectClassName)}
-                value={selectedRaceId}
+                value={effectiveSelectedRaceId}
                 onChange={(event) => setSelectedRaceId(event.target.value)}
-                disabled={races.length === 0}
+                disabled={availableRaces.length === 0}
                 aria-invalid={!!form.formState.errors.raceId}
               >
-                {races.length === 0 ? (
-                  <option value="">Nenhuma etapa disponível</option>
+                {availableRaces.length === 0 ? (
+                  <option value="">
+                    Todas as etapas já possuem resultados
+                  </option>
                 ) : (
-                  races.map((race) => (
+                  availableRaces.map((race) => (
                     <option key={race.id} value={race.id}>
                       {race.dateLabel} - {race.eventTitle}
                     </option>
@@ -321,7 +325,7 @@ const RaceResultsForm = ({ races }: RaceResultsFormProps) => {
           type="submit"
           form="race-results-form"
           className="w-full"
-          disabled={form.formState.isSubmitting || races.length === 0}
+          disabled={form.formState.isSubmitting || availableRaces.length === 0}
         >
           {form.formState.isSubmitting ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

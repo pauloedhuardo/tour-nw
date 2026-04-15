@@ -39,7 +39,7 @@ const SideBarSheet = () => {
           <Link href="/race">
             <Button className="justify-start gap-2" variant="ghost">
               <FlagIcon size={18} />
-              Resultado Race
+              Resultado Etapa
             </Button>
           </Link>
         </SheetClose>
